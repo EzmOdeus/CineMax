@@ -22,7 +22,7 @@ export function InfiniteMovieSection({ title, endpoint, className }: InfiniteMov
     let ignore = false;
     setLoading(true);
     fetch(
-      `https://api.themoviedb.org/3${endpoint}?api_key=c473487d0e572b0c0976ffda5b6b6ba7&page=${page}`
+      `https://api.themoviedb.org/3${endpoint}?api_key=${process.env.TMDB_API_KEY}&page=${page}`
     )
       .then((res) => res.json())
       .then((data) => {

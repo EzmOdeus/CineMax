@@ -23,7 +23,7 @@ export default async function MoviePage({ params }: MoviePageProps) {
       getMovieCredits(params.id),
       getMovieVideos(params.id),
       getMovieRecommendations(params.id),
-      fetch(`https://api.themoviedb.org/3/movie/${params.id}/reviews?api_key=c473487d0e572b0c0976ffda5b6b6ba7`).then(res => res.json()),
+      fetch(`https://api.themoviedb.org/3/movie/${params.id}/reviews?api_key=${process.env.TMDB_API_KEY}`).then(res => res.json()),
     ]);
 
     const trailer = videos.results.find(video => video.type === 'Trailer' && video.site === 'YouTube');
