@@ -18,13 +18,16 @@ interface MoviePageProps {
 
 export default async function MoviePage({ params }: MoviePageProps) {
   try {
-    const [movie, credits, videos, recommendations, reviewsRes] = await Promise.all([
-      getMovieDetails(params.id),
-      getMovieCredits(params.id),
-      getMovieVideos(params.id),
-      getMovieRecommendations(params.id),
-      fetch(`https://api.themoviedb.org/3/movie/${params.id}/reviews?api_key=${process.env.TMDB_API_KEY}`).then(res => res.json()),
-    ]);
+    const [movie, credits, videos, recommendations, reviewsRes] =
+      await Promise.all([
+        getMovieDetails(params.id),
+        getMovieCredits(params.id),
+        getMovieVideos(params.id),
+        getMovieRecommendations(params.id),
+        fetch(
+          `https://api.themoviedb.org/3/movie/${params.id}/reviews?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}`
+        ).then((res) => res.json()),
+      ]);
 
     const trailer = videos.results.find(video => video.type === 'Trailer' && video.site === 'YouTube');
     const mainCast = credits.cast.slice(0, 8);

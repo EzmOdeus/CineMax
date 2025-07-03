@@ -51,7 +51,7 @@ export default async function Home() {
       <div className="min-h-screen flex items-center justify-center bg-black">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-white mb-4">Oops! Something went wrong</h1>
-          <p className="text-gray-400">We're having trouble loading the movies. Please try again later.</p>
+          <p className="text-gray-400">We&apos;re having trouble loading the movies. Please try again later.</p>
         </div>
       </div>
     );

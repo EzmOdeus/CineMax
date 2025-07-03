@@ -17,20 +17,26 @@ export function InfiniteMovieSection({ title, endpoint, className }: InfiniteMov
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
   const loaderRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     let ignore = false;
     setLoading(true);
     fetch(
-      `https://api.themoviedb.org/3${endpoint}?api_key=${process.env.TMDB_API_KEY}&page=${page}`
+      `https://api.themoviedb.org/3${endpoint}?api_key=${process.env.NEXT_PUBLIC_TMDB_API_KEY}&page=${page}`
     )
       .then((res) => res.json())
       .then((data) => {
         if (!ignore) {
-          setMovies((prev) => [...prev, ...data.results]);
-          setTotalPages(data.total_pages);
+          if (Array.isArray(data.results)) {
+            setMovies((prev) => [...prev, ...data.results]);
+            setTotalPages(data.total_pages || 1);
+          } else {
+            setTotalPages(1);
+          }
           setLoading(false);
         }
+      })
+      .catch(() => {
+        setLoading(false);
       });
     return () => {
       ignore = true;
